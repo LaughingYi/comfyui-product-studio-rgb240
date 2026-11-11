@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-11",
+  "platform": "macOS arm64",
+  "device": "cpu",
+  "test_scope": "Clean node package loaded in isolated ComfyUI; replayed three previously computed BiRefNet masks through group repair, ViTMatte and final RGB240 composition. BiRefNet registration/schema checked; full BiRefNet inference was not rerun in this packaging check.",
+  "cloud_gpu_verified": false,
+  "reference_comparison": {
+    "speedy": {
+      "size": [
+        2048,
+        2048
+      ],
+      "max_rgb_channel_difference": 0,
+      "changed_pixels": 0,
+      "background_top_left_rgb": [
+        240,
+        240,
+        240
+      ]
+    },
+    "chain": {
+      "size": [
+        2048,
+        2048
+      ],
+      "max_rgb_channel_difference": 0,
+      "changed_pixels": 0,
+      "background_top_left_rgb": [
+        240,
+        240,
+        240
+      ]
+    },
+    "gucci": {
+      "size": [
+        2048,
+        2048
+      ],
+      "max_rgb_channel_difference": 0,
+      "changed_pixels": 0,
+      "background_top_left_rgb": [
+        240,
+        240,
+        240
+      ]
+    }
+  },
+  "elapsed_seconds": 146.7,
+  "standard_api_client_transport_smoke_test": "Passed upload/prompt/history/view and PNG pixel roundtrip with synthetic image; full CPU model graph covered separately by the cached-mask replay."
+}

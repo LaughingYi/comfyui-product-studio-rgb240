@@ -1,0 +1,452 @@
+{
+  "id": "8bbe7d07-cd72-4d9b-82b0-a33cfe10dd63",
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2,
+            3,
+            5,
+            8
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "__UPLOAD_IMAGE__"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadRembgByBiRefNetModel",
+      "pos": [
+        420,
+        80
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BIREFNET",
+          "type": "BIREFNET",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadRembgByBiRefNetModel"
+      },
+      "widgets_values": [
+        "General-HR.safetensors",
+        "CPU",
+        false,
+        "float32"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "GetMaskByBiRefNet",
+      "pos": [
+        800,
+        80
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "BIREFNET",
+          "link": 1
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetMaskByBiRefNet"
+      },
+      "widgets_values": [
+        2048,
+        2048,
+        "bicubic",
+        0.0
+      ]
+    },
+    {
+      "id": 4,
+      "type": "ProductGroupV3",
+      "pos": [
+        1180,
+        80
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "group_mask",
+          "type": "MASK",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "excluded_mask",
+          "type": "MASK",
+          "links": [
+            7,
+            11
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 2
+        },
+        {
+          "name": "ground_objects",
+          "type": "PRODUCT_GROUND_OBJECTS",
+          "links": [
+            10
+          ],
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ProductGroupV3"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ProductEdgeMatteV3",
+      "pos": [
+        40,
+        500
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 5
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 6
+        },
+        {
+          "name": "excluded_mask",
+          "type": "MASK",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fine_mask",
+          "type": "MASK",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ProductEdgeMatteV3"
+      },
+      "widgets_values": [
+        12
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ProductStudioSourceShadow",
+      "pos": [
+        420,
+        500
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 8
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 9
+        },
+        {
+          "name": "ground_objects",
+          "type": "PRODUCT_GROUND_OBJECTS",
+          "link": 10
+        },
+        {
+          "name": "excluded_mask",
+          "type": "MASK",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            12
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ProductStudioSourceShadow"
+      },
+      "widgets_values": [
+        2048,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "id": 7,
+      "type": "SaveImage",
+      "pos": [
+        800,
+        500
+      ],
+      "size": [
+        340,
+        280
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "rgb240/result"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "BIREFNET"
+    ],
+    [
+      2,
+      1,
+      0,
+      3,
+      1,
+      "IMAGE"
+    ],
+    [
+      3,
+      1,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      4,
+      3,
+      0,
+      4,
+      1,
+      "MASK"
+    ],
+    [
+      5,
+      1,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      4,
+      0,
+      5,
+      1,
+      "MASK"
+    ],
+    [
+      7,
+      4,
+      1,
+      5,
+      2,
+      "MASK"
+    ],
+    [
+      8,
+      1,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
+      5,
+      0,
+      6,
+      1,
+      "MASK"
+    ],
+    [
+      10,
+      4,
+      3,
+      6,
+      2,
+      "PRODUCT_GROUND_OBJECTS"
+    ],
+    [
+      11,
+      4,
+      1,
+      6,
+      3,
+      "MASK"
+    ],
+    [
+      12,
+      6,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        40,
+        40
+      ]
+    }
+  },
+  "version": 0.4
+}

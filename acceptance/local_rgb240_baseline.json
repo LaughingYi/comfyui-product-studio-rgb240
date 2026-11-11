@@ -1,0 +1,38 @@
+{
+  "speedy": {
+    "base_rgb": [
+      240,
+      240,
+      240
+    ],
+    "distant_background_pixels_checked": 1126400,
+    "all_distant_background_exact": true,
+    "mask_exactly_unchanged": true,
+    "opaque_subject_change_vs_previous": 0,
+    "desktop_save_exact": true
+  },
+  "chain": {
+    "base_rgb": [
+      240,
+      240,
+      240
+    ],
+    "distant_background_pixels_checked": 1126400,
+    "all_distant_background_exact": true,
+    "mask_exactly_unchanged": true,
+    "opaque_subject_change_vs_previous": 0,
+    "desktop_save_exact": true
+  },
+  "gucci": {
+    "base_rgb": [
+      240,
+      240,
+      240
+    ],
+    "distant_background_pixels_checked": 1126400,
+    "all_distant_background_exact": true,
+    "mask_exactly_unchanged": true,
+    "opaque_subject_change_vs_previous": 0,
+    "desktop_save_exact": true
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "__UPLOAD_IMAGE__"
+    }
+  },
+  "2": {
+    "class_type": "LoadRembgByBiRefNetModel",
+    "inputs": {
+      "model": "General-HR.safetensors",
+      "device": "CPU",
+      "use_weight": false,
+      "dtype": "float32"
+    }
+  },
+  "3": {
+    "class_type": "GetMaskByBiRefNet",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "images": [
+        "1",
+        0
+      ],
+      "width": 2048,
+      "height": 2048,
+      "upscale_method": "bicubic",
+      "mask_threshold": 0.0
+    }
+  },
+  "4": {
+    "class_type": "ProductGroupV3",
+    "inputs": {
+      "images": [
+        "1",
+        0
+      ],
+      "mask": [
+        "3",
+        0
+      ],
+      "remove_boxes": true,
+      "remove_lines": true,
+      "remove_documents": true
+    }
+  },
+  "5": {
+    "class_type": "ProductEdgeMatteV3",
+    "inputs": {
+      "images": [
+        "1",
+        0
+      ],
+      "mask": [
+        "4",
+        0
+      ],
+      "excluded_mask": [
+        "4",
+        1
+      ],
+      "edge_band": 12
+    }
+  },
+  "6": {
+    "class_type": "ProductStudioSourceShadow",
+    "inputs": {
+      "images": [
+        "1",
+        0
+      ],
+      "mask": [
+        "5",
+        0
+      ],
+      "ground_objects": [
+        "4",
+        3
+      ],
+      "excluded_mask": [
+        "4",
+        1
+      ],
+      "out_size": 2048,
+      "shadow_strength": 1.0,
+      "light_strength": 1.0
+    }
+  },
+  "7": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "6",
+        0
+      ],
+      "filename_prefix": "rgb240/result"
+    }
+  }
+}

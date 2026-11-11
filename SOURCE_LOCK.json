@@ -1,0 +1,24 @@
+{
+  "release": "v0.1.0-rgb240",
+  "scope": "only_final_rgb240_pipeline",
+  "cloud_gpu_verified": false,
+  "runtime_default": "cpu_reference",
+  "comfyui": {
+    "repository": "https://github.com/Comfy-Org/ComfyUI.git",
+    "commit": "c76e64fe5f9108af6946ac3a39ff4280142d6dcd"
+  },
+  "birefnet_nodes": {
+    "repository": "https://github.com/lldacing/ComfyUI_BiRefNet_ll.git",
+    "commit": "5443a2aa16cfbd98bb2f7dcc8bdcb70439e08529"
+  },
+  "clip": {
+    "repository": "https://github.com/openai/CLIP.git",
+    "commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6"
+  },
+  "expected_node_ids": [
+    "ProductGroupV3",
+    "ProductEdgeMatteV3",
+    "ProductStudioSourceShadow"
+  ],
+  "python_reference": "3.13.12"
+}
